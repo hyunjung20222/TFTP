@@ -1,8 +1,5 @@
 #include "../tftp.h"
 
-int datasize = 512;
-int port = 69;
-
 int main(int argc, char **argv)
 {
     int sock, n, client_len, pid, status, tid;
@@ -21,7 +18,7 @@ int main(int argc, char **argv)
     // 서버 구조체 생성 후 bind
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = htonl(INADDR_ANY);
-    server.sin_port = htons(port);
+    server.sin_port = htons(PORT);
 
     // binding
     if (bind (sock, (struct sockaddr *) &server, sizeof(server)) < 0)
@@ -90,6 +87,7 @@ int main(int argc, char **argv)
         {
             case 1: 
             printf("\nOpcode is 1, it means RRQ!\n");
+            server_send(filenmae, client, mode, tid);
             break;
 
             case 2:
