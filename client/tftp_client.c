@@ -1,7 +1,5 @@
 #include "../tftp.h"
 
-int port = 69;
-int datasize = 512;
 int w_size = 1;
 int p_length = 512;
 
@@ -51,6 +49,7 @@ int main(int argc, char **argv)
             case 'g':
             strncpy(filename, optarg, sizeof(filename) - 1);
             opcode = RRQ;
+            fp = fopen(filename, "w");
             if (fp == NULL)
             {
                 printf("\nFile could not be opened!\n");
@@ -100,7 +99,7 @@ int main(int argc, char **argv)
     memset(&server, 0, sizeof (server));
     server.sin_family = AF_INET;
     memcpy(&server.sin_addr, host -> h_addr_list[0], host -> h_length);
-    server.sin_port = htons(port);
+    server.sin_port = htons(PORT);
     server_len = sizeof(server);
 
     // 서버에 전송할 요청 패킷 (RRQ, WRQ) 생성 및 전송
@@ -118,6 +117,7 @@ int main(int argc, char **argv)
     {
         case RRQ:
         printf("\nOpcode is RRQ, get file from server!\n");
+        client_get(filename, server, mode, sock);
         break;
 
         case WRQ:
