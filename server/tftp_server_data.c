@@ -301,7 +301,10 @@ void server_get(char *pFilename, struct sockaddr_in client, char *pMode, int tid
             return;
         }
         else
+        {
+            ack_len = ack_packet(bnumber, ackbuf);
             printf("\nServer successfully get data packet # %d\n", recvcount);
+        }
         
         if (sendto(sock, ackbuf, len, 0, (struct sockaddr *) &client, sizeof(client)) != len)
         {
