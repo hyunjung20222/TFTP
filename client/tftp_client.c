@@ -122,6 +122,7 @@ int main(int argc, char **argv)
 
         case WRQ:
         printf("\nOpcode is WRQ, send file to server!\n");
+        client_send(filename, server, mode, sock);
         break;
 
         default:
