@@ -41,9 +41,12 @@ static char err_msg[4][40] = { "Not defined Error",
 int req_packet(int opcode, char * filename, char *mode, char buf[]);
 int ack_packet(int block, char buf[]);
 int err_packet(int err_code, char *err_msg, char buf[]);
+
 // data packet create function (get, send)
 void server_send(char *pFilename, struct sockaddr_in client, char *pMode, int tid);
 void client_get(char *pFilename, struct sockaddr_in server, char *pMode, int sock);
+void client_send(char *pFilename, struct sockaddr_in server, char *pMode, int sock);
+void server_get(char *pFilename, struct sockaddr_in client, char *pMode, int tid);
 
 // print usage function
 void usage(void);
