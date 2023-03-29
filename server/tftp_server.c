@@ -3,7 +3,7 @@
 int main(int argc, char **argv)
 {
     int sock, n, client_len, pid, status, tid;
-    char opcode, *bufindex, filenmae[196], mode[12];
+    char opcode, *bufindex, filename[196], mode[12];
     struct sockaddr_in server, client;
 
     // 클라이언트와 통신을 위해 socket 생성
@@ -67,14 +67,14 @@ int main(int argc, char **argv)
         if (opcode == 1 || opcode == 2)
         {
             // 파일 이름 저장
-            strncpy (filenmae, bufindex, sizeof(filenmae) - 1);
-            bufindex += strlen(filenmae) + 1;
+            strncpy (filename, bufindex, sizeof(filename) - 1);
+            bufindex += strlen(filename) + 1;
             // 모드 저장
             strncpy(mode, bufindex, sizeof(mode) - 1);
             bufindex += strlen(mode) + 1;
 
             printf("\nRight packet!\n");
-            printf("opcode : %d\nfilename : %s\nmode : %s\n", opcode, filenmae, mode);
+            printf("opcode : %d\nfilename : %s\nmode : %s\n", opcode, filename, mode);
         }
         else
         {
@@ -87,11 +87,12 @@ int main(int argc, char **argv)
         {
             case 1: 
             printf("\nOpcode is 1, it means RRQ!\n");
-            server_send(filenmae, client, mode, tid);
+            server_send(filename, client, mode, tid);
             break;
 
             case 2:
             printf("\nOpcode is 2, it means WRQ!\n");
+            server_get(filename, client, mode, tid);
             break;
 
             default:
