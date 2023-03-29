@@ -312,14 +312,6 @@ void client_send(char *pFilename, struct sockaddr_in server, char *pMode, int so
         else
             printf("\nClient successfully get ACK packet # %d", recvcount);
         }
-        // for (i = 0; i < bnumber; i++)
-        // {
-        //     if (sendto(sock, packetbuf[i], len, 0, (struct sockaddr *) &server, sizeof (server)) != len)
-        //     {
-        //         printf("\nCould not send data packet to server!\n");
-        //         return;
-        //     }
-        // }
 
         // 마지막 데이터 송신 확인
         if (ssize != DATASIZE)
